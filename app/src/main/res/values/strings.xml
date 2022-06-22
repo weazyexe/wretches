@@ -3,6 +3,7 @@
 
     <string name="main_crimes_text">Преступления</string>
     <string name="main_add_new_crime_text">Добавить преступление</string>
+    <string name="main_settings_label_text">Настройки</string>
 
     <string name="new_crime_title_text">Новое преступление</string>
     <string name="new_crime_edit_text">Редактирование</string>
@@ -12,4 +13,15 @@
     <string name="new_crime_attach_photos_label_text">Фотографии с места преступления</string>
     <string name="new_crime_pick_photos_label_text">Выбрать из галлереи</string>
     <string name="new_crime_solved_label_text">Наглец, что это сделал, найден?</string>
+
+    <string name="settings_title_text">Настройки</string>
+    <string name="settings_theme_label_text">Тема</string>
+    <string name="settings_theme_description_text">Цветовая палитра приложения</string>
+    <string name="settings_theme_value_light_text">Светлая</string>
+    <string name="settings_theme_value_dark_text">Тёмная</string>
+    <string name="settings_theme_value_system_text">Как в системе</string>
+    <string name="settings_backup_label_text">Резервная копия</string>
+    <string name="settings_backup_description_text">Сделать локальную резервную копию всех данных приложения</string>
+    <string name="settings_restore_label_text">Восстановить</string>
+    <string name="settings_restore_description_text">Восстановление всех данных из резервной копии</string>
 </resources>

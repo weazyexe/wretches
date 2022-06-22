@@ -27,6 +27,10 @@
             android:name=".ui.newcrime.NewCrimeActivity"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

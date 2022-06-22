@@ -10,9 +10,11 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.chrisbanes.insetter.applyInsetter
+import dev.weazyexe.wretches.R
 import dev.weazyexe.wretches.databinding.ActivityMainBinding
 import dev.weazyexe.wretches.ui.main.adapter.CrimeAdapter
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity
+import dev.weazyexe.wretches.ui.settings.SettingsActivity
 import kotlinx.coroutines.flow.collectLatest
 
 class MainActivity : AppCompatActivity() {
@@ -55,6 +57,14 @@ class MainActivity : AppCompatActivity() {
     private fun initListeners() = with(binding) {
         newCrimeButton.setOnClickListener {
             openActivity<NewCrimeActivity>()
+        }
+        toolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.settings) {
+                openActivity<SettingsActivity>()
+                true
+            } else {
+                false
+            }
         }
     }
 

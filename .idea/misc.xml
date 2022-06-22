@@ -5,8 +5,10 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_new_crime.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_crime.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_photo.xml" value="0.55" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.3098958333333333" />
       </map>
     </option>
   </component>
