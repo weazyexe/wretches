@@ -27,17 +27,7 @@ class NewCrimeActivity : AppCompatActivity() {
         initEdgeToEdge()
         initViews()
         initListeners()
-
-        with(binding) {
-            lifecycleScope.launchWhenStarted {
-                viewModel.state.collectLatest {
-                    toolbar.title = getString(it.toolbarTitleRes)
-                    titleTv.performIfChanged(it.title) { text = it.title }
-                    descriptionTv.performIfChanged(it.description) { text = it.description }
-                    solvedCb.performIfChanged(it.isSolved) { isChecked = it.isSolved }
-                }
-            }
-        }
+        updateUi()
     }
 
     private fun initEdgeToEdge() = with(binding) {
@@ -57,6 +47,19 @@ class NewCrimeActivity : AppCompatActivity() {
     private fun initListeners() = with(binding) {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
+        }
+    }
+
+    private fun updateUi() {
+        with(binding) {
+            lifecycleScope.launchWhenStarted {
+                viewModel.state.collectLatest {
+                    toolbar.title = getString(it.toolbarTitleRes)
+                    titleTv.performIfChanged(it.title) { text = it.title }
+                    descriptionTv.performIfChanged(it.description) { text = it.description }
+                    solvedCb.performIfChanged(it.isSolved) { isChecked = it.isSolved }
+                }
+            }
         }
     }
 

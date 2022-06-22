@@ -7,11 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.databinding.ActivityMainBinding
 import dev.weazyexe.wretches.ui.main.adapter.CrimeAdapter
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity
+import kotlinx.coroutines.flow.collectLatest
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         initEdgeToEdge()
         initViews()
         initListeners()
-        updateData()
+        updateUi()
     }
 
     private fun initEdgeToEdge() = with(binding) {
@@ -56,8 +58,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateData() {
-        adapter.submitList(viewModel.crimes)
+    private fun updateUi() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.state.collectLatest {
+                adapter.submitList(it.crimes)
+            }
+        }
     }
 
     private inline fun <reified A : Activity> openActivity(bundle: Bundle = bundleOf()) {

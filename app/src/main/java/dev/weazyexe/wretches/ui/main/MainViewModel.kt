@@ -2,36 +2,13 @@ package dev.weazyexe.wretches.ui.main
 
 import androidx.lifecycle.ViewModel
 import dev.weazyexe.wretches.entity.Crime
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class MainViewModel : ViewModel() {
 
-    val crimes = listOf(
-        Crime(
-            "1",
-            "Губка в раковине",
-            "Это какое-то безобразие, да кто же так делает! Убирайте на кухню",
-            true
-        ),
-        Crime("2", "Грязный стол", "Кто-то не убрался после еды", true),
-        Crime("3", "Пол в песке", "Пустыня Сахара в 519 кабинете", false),
-        Crime(
-            "4",
-            "Нет воды в кулере",
-            "Вода в кулере закончилась и кто-то не соизволил обновить бутыль",
-            false
-        ),
-        Crime("5", "Кто съел все мятные пряники??", "Нужно спросить у Шлёпы", true),
-        Crime("6", "Чай", "Коллеги пошли на чай и не позвали меня, непорядок", false),
-        Crime("7", "Тестовый девайс", "Разбили Nokia 6.1 на 10 андроиде", false),
-        Crime("8", "Дорогой Миша, вот тебе диплинк!", "Отправили в прод тестовый пуш", true),
-        Crime("9", "Пол в песке", "Пустыня Сахара в 519 кабинете", false),
-        Crime(
-            "10",
-            "Нет воды в кулере",
-            "Вода в кулере закончилась и кто-то не соизволил обновить бутыль",
-            false
-        ),
-        Crime("11", "Кто съел все мятные пряники??", "Нужно спросить у Шлёпы", true),
-        Crime("12", "Чай", "Коллеги пошли на чай и не позвали меня, непорядок", false),
-    )
+    private val _state = MutableStateFlow(MainState())
+    val state: StateFlow<MainState>
+        get() = _state.asStateFlow()
 }
