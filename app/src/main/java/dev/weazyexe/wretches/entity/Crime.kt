@@ -6,6 +6,6 @@ data class Crime(
     val id: String,
     val title: String,
     val description: String,
-    val photoUri: Uri?,
-    val isSolved: Boolean
+    val isSolved: Boolean,
+    val photos: List<Uri> = emptyList()
 )

@@ -3,4 +3,12 @@
 
     <string name="main_crimes_text">Преступления</string>
     <string name="main_add_new_crime_text">Добавить преступление</string>
+
+    <string name="new_crime_title_text">Новое преступление</string>
+    <string name="new_crime_save_text">Сохранить</string>
+    <string name="new_crime_title_label_text">Что случилось?</string>
+    <string name="new_crime_description_label_text">Опишите поподробнее</string>
+    <string name="new_crime_attach_photos_label_text">Фотографии с места преступления</string>
+    <string name="new_crime_pick_photos_label_text">Выбрать из галлереи</string>
+    <string name="new_crime_solved_label_text">Наглец, что это сделал, найден?</string>
 </resources>

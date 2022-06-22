@@ -1,14 +1,16 @@
 package dev.weazyexe.wretches.ui.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import dev.chrisbanes.insetter.Insetter
 import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.databinding.ActivityMainBinding
 import dev.weazyexe.wretches.ui.main.adapter.CrimeAdapter
+import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         initEdgeToEdge()
         initViews()
+        initListeners()
         updateData()
     }
 
@@ -44,7 +47,19 @@ class MainActivity : AppCompatActivity() {
         crimesRv.layoutManager = LinearLayoutManager(this@MainActivity)
     }
 
+    private fun initListeners() = with(binding) {
+        newCrimeButton.setOnClickListener {
+            openActivity<NewCrimeActivity>()
+        }
+    }
+
     private fun updateData() {
         adapter.submitList(viewModel.crimes)
+    }
+
+    private inline fun <reified A : Activity> openActivity() {
+        Intent(this@MainActivity, A::class.java).apply {
+            startActivity(this)
+        }
     }
 }

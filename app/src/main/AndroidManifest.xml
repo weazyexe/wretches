@@ -13,7 +13,8 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +22,10 @@
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".ui.newcrime.NewCrimeActivity"
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 
