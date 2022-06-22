@@ -24,4 +24,8 @@
     <string name="settings_backup_description_text">Сделать локальную резервную копию всех данных приложения</string>
     <string name="settings_restore_label_text">Восстановить</string>
     <string name="settings_restore_description_text">Восстановление всех данных из резервной копии</string>
+
+    <string name="theme_picker_title_text">Тема</string>
+    <string name="theme_picker_save_text">Сохранить</string>
+    <string name="theme_picker_cancel_text">Отмена</string>
 </resources>
