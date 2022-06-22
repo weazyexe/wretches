@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.chrisbanes.insetter.applyInsetter
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<MainViewModel>()
 
-    private val adapter = CrimeAdapter()
+    private val adapter = CrimeAdapter {
+        openActivity<NewCrimeActivity>(NewCrimeActivity.composeParams(it))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +60,9 @@ class MainActivity : AppCompatActivity() {
         adapter.submitList(viewModel.crimes)
     }
 
-    private inline fun <reified A : Activity> openActivity() {
+    private inline fun <reified A : Activity> openActivity(bundle: Bundle = bundleOf()) {
         Intent(this@MainActivity, A::class.java).apply {
+            putExtras(bundle)
             startActivity(this)
         }
     }

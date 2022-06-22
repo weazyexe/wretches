@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.weazyexe.wretches.databinding.ItemCrimeBinding
 import dev.weazyexe.wretches.entity.Crime
 
-class CrimeAdapter : ListAdapter<Crime, CrimeAdapter.Holder>(DiffUtils()) {
+class CrimeAdapter(private val onClick: (Crime) -> Unit) :
+    ListAdapter<Crime, CrimeAdapter.Holder>(DiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ItemCrimeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +29,10 @@ class CrimeAdapter : ListAdapter<Crime, CrimeAdapter.Holder>(DiffUtils()) {
             titleTv.text = crime.title
             descriptionTv.text = crime.description
             solvedIv.isVisible = crime.isSolved
+
+            root.setOnClickListener {
+                onClick(crime)
+            }
         }
     }
 

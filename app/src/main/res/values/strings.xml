@@ -5,6 +5,7 @@
     <string name="main_add_new_crime_text">Добавить преступление</string>
 
     <string name="new_crime_title_text">Новое преступление</string>
+    <string name="new_crime_edit_text">Редактирование</string>
     <string name="new_crime_save_text">Сохранить</string>
     <string name="new_crime_title_label_text">Что случилось?</string>
     <string name="new_crime_description_label_text">Опишите поподробнее</string>

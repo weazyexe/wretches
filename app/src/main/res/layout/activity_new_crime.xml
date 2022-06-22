@@ -63,6 +63,7 @@
             android:text="@string/new_crime_attach_photos_label_text" />
 
         <Button
+            android:id="@+id/pick_photos_button"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,6 +72,7 @@
             android:text="@string/new_crime_pick_photos_label_text" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photos_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -80,6 +82,7 @@
             tools:listitem="@layout/item_photo" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/solved_cb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
