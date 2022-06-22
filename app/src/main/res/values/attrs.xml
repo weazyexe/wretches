@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WalletCard">
+        <attr name="wallet_card_title" format="string" />
+        <attr name="wallet_card_balance" format="string" />
+        <attr name="wallet_card_address" format="string" />
+    </declare-styleable>
+</resources>
