@@ -21,7 +21,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun initEdgeToEdge() = with(binding) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         toolbar.applyInsetter {
-            type(navigationBars = true, statusBars = true) { padding() }
+            type(statusBars = true) { padding() }
         }
     }
 
