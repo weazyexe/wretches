@@ -1,17 +1,19 @@
 package dev.weazyexe.wretches.ui.settings
 
 import android.os.Bundle
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.databinding.ActivitySettingsBinding
-import dev.weazyexe.wretches.entity.Theme
 import dev.weazyexe.wretches.utils.AlertDialogBuilder
+import kotlinx.coroutines.flow.collectLatest
 
 class SettingsActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
+    private val viewModel by viewModels<SettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +21,7 @@ class SettingsActivity : AppCompatActivity() {
 
         initEdgeToEdge()
         initListeners()
+        updateUi()
     }
 
     private fun initEdgeToEdge() = with(binding) {
@@ -33,9 +36,19 @@ class SettingsActivity : AppCompatActivity() {
             onBackPressed()
         }
         themeButton.setOnClickListener {
-            AlertDialogBuilder.themePicker(this@SettingsActivity, Theme.SYSTEM) {
-                Toast.makeText(this@SettingsActivity, it.stringRes, Toast.LENGTH_SHORT).show()
-            }.show()
+            AlertDialogBuilder.themePicker(
+                context = this@SettingsActivity,
+                value = viewModel.getCurrentTheme(),
+                onSuccess = { viewModel.setTheme(it) }
+            ).show()
+        }
+    }
+
+    private fun updateUi() = with(binding) {
+        lifecycleScope.launchWhenStarted {
+            viewModel.state.collectLatest {
+                themeValueTv.text = getString(it.theme.stringRes)
+            }
         }
     }
 }

@@ -1,14 +1,9 @@
 package dev.weazyexe.wretches.ui.main
 
-import androidx.lifecycle.ViewModel
-import dev.weazyexe.wretches.entity.Crime
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import android.app.Application
+import dev.weazyexe.wretches.ui.common.BaseViewModel
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : BaseViewModel<MainState>(application) {
 
-    private val _state = MutableStateFlow(MainState())
-    val state: StateFlow<MainState>
-        get() = _state.asStateFlow()
+    override val initialState: MainState = MainState()
 }
