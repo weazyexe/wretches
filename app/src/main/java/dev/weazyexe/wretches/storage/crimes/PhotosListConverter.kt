@@ -12,11 +12,19 @@ class PhotosListConverter {
 
     @TypeConverter
     fun toString(photos: List<Uri>): String {
-        return photos.joinToString(separator = SEPARATOR) { it.toString() }
+        return if (photos.isNotEmpty()) {
+            photos.joinToString(separator = SEPARATOR) { it.toString() }
+        } else {
+            ""
+        }
     }
 
     @TypeConverter
     fun toPhotosList(rawString: String): List<Uri> {
-        return rawString.split(SEPARATOR).map { Uri.parse(it) }
+        return if (rawString != "") {
+            rawString.split(SEPARATOR).map { Uri.parse(it) }
+        } else {
+            emptyList()
+        }
     }
 }

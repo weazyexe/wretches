@@ -1,11 +1,13 @@
 package dev.weazyexe.wretches.entity
 
 import android.net.Uri
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 
 @Entity
+@Parcelize
 data class Crime(
     @PrimaryKey
     val id: String,
@@ -13,4 +15,4 @@ data class Crime(
     val description: String,
     val isSolved: Boolean,
     val photos: List<Uri> = emptyList()
-) : Serializable
+) : Parcelable

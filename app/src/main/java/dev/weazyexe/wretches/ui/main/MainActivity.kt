@@ -16,7 +16,8 @@ import dev.weazyexe.wretches.databinding.ActivityMainBinding
 import dev.weazyexe.wretches.ui.main.adapter.CrimeAdapter
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity
 import dev.weazyexe.wretches.ui.settings.SettingsActivity
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +36,11 @@ class MainActivity : AppCompatActivity() {
         initViews()
         initListeners()
         updateUi()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchCrimes()
     }
 
     private fun initEdgeToEdge() = with(binding) {
@@ -71,12 +77,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUi() = with(binding) {
         lifecycleScope.launchWhenStarted {
-            viewModel.state.collectLatest {
+            viewModel.state.onEach {
                 val hasCrimes = it.crimes.isNotEmpty()
                 crimesRv.isVisible = hasCrimes
                 emptyLayout.root.isVisible = !hasCrimes
                 adapter.submitList(it.crimes)
-            }
+            }.collect()
         }
     }
 

@@ -39,7 +39,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/title_tv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:lines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +56,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description_tv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:maxLines="6" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -35,3 +35,5 @@ private val DEFAULT_CRIMES = listOf(
 data class MainState(
     val crimes: List<Crime> = DEFAULT_CRIMES
 )
+
+sealed class MainEffect

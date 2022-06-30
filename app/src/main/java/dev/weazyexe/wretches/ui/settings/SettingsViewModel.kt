@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     application: Application
-) : BaseViewModel<SettingsState>(application) {
+) : BaseViewModel<SettingsState, SettingsEffect>(application) {
 
     override val initialState: SettingsState = SettingsState()
     private val settingsStorage = (application as App).settingsStorage

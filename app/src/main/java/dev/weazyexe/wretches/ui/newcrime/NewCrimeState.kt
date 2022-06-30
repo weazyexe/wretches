@@ -12,3 +12,7 @@ data class NewCrimeState(
     val isSolved: Boolean = false,
     val photos: List<Uri> = emptyList()
 )
+
+sealed class NewCrimeEffect {
+    object GoBack : NewCrimeEffect()
+}
