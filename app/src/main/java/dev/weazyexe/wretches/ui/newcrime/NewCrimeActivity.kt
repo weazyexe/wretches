@@ -1,6 +1,7 @@
 package dev.weazyexe.wretches.ui.newcrime
 
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -18,7 +19,13 @@ class NewCrimeActivity : AppCompatActivity() {
     private val binding by lazy { ActivityNewCrimeBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<NewCrimeViewModel>()
 
-    private val adapter = PhotoAdapter()
+    private val adapter = PhotoAdapter {
+        viewModel.removePhoto(it)
+    }
+
+    private val getPhotos = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let { viewModel.addPhoto(uri) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +44,9 @@ class NewCrimeActivity : AppCompatActivity() {
         }
         saveButton.applyInsetter {
             type(tappableElement = true, ime = true) { margin() }
+        }
+        pickPhotosButton.setOnClickListener {
+            getPhotos.launch("image/*")
         }
     }
 
@@ -58,6 +68,7 @@ class NewCrimeActivity : AppCompatActivity() {
                     titleTv.performIfChanged(it.title) { text = it.title }
                     descriptionTv.performIfChanged(it.description) { text = it.description }
                     solvedCb.performIfChanged(it.isSolved) { isChecked = it.isSolved }
+                    adapter.submitList(it.photos)
                 }
             }
         }

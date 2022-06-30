@@ -38,6 +38,12 @@ class NewCrimeViewModel(
         }
     }
 
+    fun removePhoto(photo: Uri) {
+        setState {
+            copy(photos = photos - photo)
+        }
+    }
+
     private fun setCrime(crime: Crime) {
         setState {
             copy(

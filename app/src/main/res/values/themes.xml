@@ -34,7 +34,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
-    <style name="Shapes.Corner8" parent="">
-        <item name="cornerSize">8dp</item>
+    <style name="Shapes.Corner16" parent="">
+        <item name="cornerSize">16dp</item>
     </style>
 </resources>

@@ -12,6 +12,7 @@
     <string name="new_crime_description_label_text">Опишите поподробнее</string>
     <string name="new_crime_attach_photos_label_text">Фотографии с места преступления</string>
     <string name="new_crime_pick_photos_label_text">Выбрать из галлереи</string>
+    <string name="new_crime_remove_photo_text">Удалить фотографию</string>
     <string name="new_crime_solved_label_text">Наглец, что это сделал, найден?</string>
 
     <string name="settings_title_text">Настройки</string>

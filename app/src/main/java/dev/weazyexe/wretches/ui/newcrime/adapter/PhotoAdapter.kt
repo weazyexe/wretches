@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.weazyexe.wretches.databinding.ItemPhotoBinding
 
-class PhotoAdapter() : ListAdapter<Uri, PhotoAdapter.Holder>(DiffUtils()) {
+class PhotoAdapter(
+    private val onCloseClick: (photo: Uri) -> Unit
+) : ListAdapter<Uri, PhotoAdapter.Holder>(DiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ItemPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,8 +27,10 @@ class PhotoAdapter() : ListAdapter<Uri, PhotoAdapter.Holder>(DiffUtils()) {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(photo: Uri) = with(binding) {
+            closeBtn.setOnClickListener { onCloseClick(photo) }
             Glide.with(itemView.context)
                 .load(photo)
+                .centerCrop()
                 .into(photoIv)
         }
     }
