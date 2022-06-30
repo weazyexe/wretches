@@ -1,4 +1,4 @@
-package dev.weazyexe.wretches.storage
+package dev.weazyexe.wretches.storage.settings
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit

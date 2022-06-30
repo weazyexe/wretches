@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.chrisbanes.insetter.applyInsetter
@@ -68,9 +69,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUi() {
+    private fun updateUi() = with(binding) {
         lifecycleScope.launchWhenStarted {
             viewModel.state.collectLatest {
+                val hasCrimes = it.crimes.isNotEmpty()
+                crimesRv.isVisible = hasCrimes
+                emptyLayout.root.isVisible = !hasCrimes
                 adapter.submitList(it.crimes)
             }
         }
