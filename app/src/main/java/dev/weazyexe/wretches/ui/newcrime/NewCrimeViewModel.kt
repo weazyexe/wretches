@@ -9,6 +9,7 @@ import dev.weazyexe.wretches.app.App
 import dev.weazyexe.wretches.entity.Crime
 import dev.weazyexe.wretches.ui.common.BaseViewModel
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity.Companion.EXTRA_CRIME
+import dev.weazyexe.wretches.ui.newcrime.NewCrimeEffect.*
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -50,16 +51,18 @@ class NewCrimeViewModel(
     }
 
     fun save() = viewModelScope.launch {
-        val id = state.value.id.takeIf { it != null } ?: UUID.randomUUID().toString()
-        val crime = Crime(
-            id = id,
-            title = state.value.title,
-            description = state.value.description,
-            isSolved = state.value.isSolved,
-            photos = state.value.photos
-        )
-        crimesStorage.save(crime)
-        NewCrimeEffect.GoBack.emit()
+        if (validate()) {
+            val id = state.value.id.takeIf { it != null } ?: UUID.randomUUID().toString()
+            val crime = Crime(
+                id = id,
+                title = state.value.title,
+                description = state.value.description,
+                isSolved = state.value.isSolved,
+                photos = state.value.photos
+            )
+            crimesStorage.save(crime)
+            GoBack.emit()
+        }
     }
 
     private fun setCrime(crime: Crime) {
@@ -73,5 +76,19 @@ class NewCrimeViewModel(
                 photos = crime.photos
             )
         }
+    }
+
+    private fun validate(): Boolean {
+        if (state.value.title.isEmpty()) {
+            SetTitleError(R.string.new_crime_field_must_not_be_empty_text).emit()
+            return false
+        }
+
+        if (state.value.description.isEmpty()) {
+            SetDescriptionError(R.string.new_crime_field_must_not_be_empty_text).emit()
+            return false
+        }
+
+        return true
     }
 }

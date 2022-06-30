@@ -15,6 +15,7 @@
     <string name="new_crime_pick_photos_label_text">Выбрать из галлереи</string>
     <string name="new_crime_remove_photo_text">Удалить фотографию</string>
     <string name="new_crime_solved_label_text">Наглец, что это сделал, найден?</string>
+    <string name="new_crime_field_must_not_be_empty_text">Поле должно быть заполнено</string>
 
     <string name="settings_title_text">Настройки</string>
     <string name="settings_theme_label_text">Тема</string>

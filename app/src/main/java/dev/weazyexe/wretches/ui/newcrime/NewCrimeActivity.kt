@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.databinding.ActivityNewCrimeBinding
 import dev.weazyexe.wretches.entity.Crime
+import dev.weazyexe.wretches.ui.newcrime.NewCrimeEffect.*
 import dev.weazyexe.wretches.ui.newcrime.adapter.PhotoAdapter
 import dev.weazyexe.wretches.utils.updateIfNeeds
 import kotlinx.coroutines.flow.collectLatest
@@ -61,9 +62,11 @@ class NewCrimeActivity : AppCompatActivity() {
             onBackPressed()
         }
         titleTv.doOnTextChanged { text, _, _, _ ->
+            titleTil.isErrorEnabled = false
             viewModel.updateTitle(text.toString())
         }
         descriptionTv.doOnTextChanged { text, _, _, _ ->
+            descriptionTil.isErrorEnabled = false
             viewModel.updateDescription(text.toString())
         }
         solvedCb.setOnCheckedChangeListener { _, isChecked ->
@@ -90,7 +93,15 @@ class NewCrimeActivity : AppCompatActivity() {
                 launch {
                     viewModel.effects.collectLatest {
                         when (it) {
-                            is NewCrimeEffect.GoBack -> onBackPressed()
+                            is GoBack -> onBackPressed()
+                            is SetTitleError -> {
+                                titleTil.isErrorEnabled = true
+                                titleTil.error = getString(it.resId)
+                            }
+                            is SetDescriptionError -> {
+                                descriptionTil.isErrorEnabled = true
+                                descriptionTil.error = getString(it.resId)
+                            }
                         }
                     }
                 }

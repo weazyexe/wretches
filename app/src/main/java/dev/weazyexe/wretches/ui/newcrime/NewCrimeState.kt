@@ -15,4 +15,6 @@ data class NewCrimeState(
 
 sealed class NewCrimeEffect {
     object GoBack : NewCrimeEffect()
+    data class SetTitleError(@StringRes val resId: Int) : NewCrimeEffect()
+    data class SetDescriptionError(@StringRes val resId: Int) : NewCrimeEffect()
 }
