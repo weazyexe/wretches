@@ -33,7 +33,7 @@ object AlertDialogBuilder {
             .create()
     }
 
-    fun noStoragePermission(context: Context): AlertDialog =
+    fun noReadStoragePermission(context: Context): AlertDialog =
         MaterialAlertDialogBuilder(context)
             .setTitle(R.string.photo_picker_no_permission_title_text)
             .setMessage(R.string.photo_picker_no_permission_description_text)
@@ -42,5 +42,12 @@ object AlertDialogBuilder {
             }
             .create()
 
-
+    fun noWriteStoragePermission(context: Context): AlertDialog =
+        MaterialAlertDialogBuilder(context)
+            .setTitle(R.string.settings_backup_permission_title_text)
+            .setMessage(R.string.settings_backup_permission_description_text)
+            .setPositiveButton(R.string.photo_picker_ok_text) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
 }

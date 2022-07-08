@@ -1,4 +1,4 @@
-package dev.weazyexe.wretches.storage
+package dev.weazyexe.wretches.storage.photo
 
 import android.content.ContentUris
 import android.content.Context

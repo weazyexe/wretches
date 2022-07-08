@@ -13,6 +13,12 @@ import kotlinx.coroutines.withContext
 
 class SettingsStorage(private val context: Context) {
 
+    companion object {
+
+        private const val DATA_STORE_SETTINGS = "DATA_STORE_SETTINGS"
+        private const val KEY_THEME = "KEY_THEME"
+    }
+
     private val Context.dataStore by preferencesDataStore(name = DATA_STORE_SETTINGS)
     private val keyTheme = stringPreferencesKey(KEY_THEME)
 
@@ -37,11 +43,5 @@ class SettingsStorage(private val context: Context) {
         } catch (e: Exception) {
             false
         }
-    }
-
-    companion object {
-
-        private const val DATA_STORE_SETTINGS = "DATA_STORE_SETTINGS"
-        private const val KEY_THEME = "KEY_THEME"
     }
 }

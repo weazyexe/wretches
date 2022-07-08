@@ -28,6 +28,9 @@
     <string name="settings_backup_successful_text">Все данные успешно выгружены</string>
     <string name="settings_backup_error_text">При выгрузке данных произошла ошибка</string>
     <string name="settings_backup_nothing_to_backup_text">Нет данных о преступлениях, которые следует выгрузить</string>
+    <string name="settings_backup_permission_title_text">Нет разрешения</string>
+    <string name="settings_backup_permission_description_text">Для того, чтобы сохранить копию данных о преступлениях, требуется разрешение на запись в память устройства</string>
+    <string name="settings_backup_permission_ok_text">Ок</string>
     <string name="settings_restore_label_text">Восстановить</string>
     <string name="settings_restore_description_text">Восстановление всех данных из резервной копии</string>
 
