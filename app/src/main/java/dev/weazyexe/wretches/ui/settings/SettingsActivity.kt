@@ -24,10 +24,15 @@ class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<SettingsViewModel>()
 
-    private val createFileContract =
+    private val createFileLauncher =
         registerForActivityResult(
             ActivityResultContracts.CreateDocument("application/json")
         ) { uri -> uri?.let { viewModel.backup(uri) } }
+
+    private val openFileLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.OpenDocument()
+        ) { uri -> uri?.let { viewModel.restore(uri) } }
 
     private val permissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -73,7 +78,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
         restoreButton.setOnClickListener {
-//            viewModel.restore()
+            openFileLauncher.launch(arrayOf("application/json"))
         }
     }
 
@@ -95,7 +100,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun createBackupFile() {
         if (viewModel.hasCrimes()) {
-            createFileContract.launch(FILE_NAME)
+            createFileLauncher.launch(FILE_NAME)
         } else {
             viewModel.emitEffect(SettingsEffect.ShowSnackbar(R.string.settings_backup_nothing_to_backup_text))
         }

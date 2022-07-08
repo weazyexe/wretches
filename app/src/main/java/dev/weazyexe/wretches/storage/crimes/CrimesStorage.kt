@@ -18,7 +18,8 @@ class CrimesStorage(context: Context) {
         dao.getAll()
     }
 
-    suspend fun saveAll(crimes: List<Crime>) = withContext(Dispatchers.IO) {
+    suspend fun rewriteAll(crimes: List<Crime>) = withContext(Dispatchers.IO) {
+        dao.deleteAll()
         dao.saveAll(crimes)
     }
 

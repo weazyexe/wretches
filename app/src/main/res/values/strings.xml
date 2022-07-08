@@ -33,6 +33,8 @@
     <string name="settings_backup_permission_ok_text">Ок</string>
     <string name="settings_restore_label_text">Восстановить</string>
     <string name="settings_restore_description_text">Восстановление всех данных из резервной копии</string>
+    <string name="settings_restore_successful_text">Данные успешно восстановлены</string>
+    <string name="settings_restore_error_text">Произошла ошибка при восстановлении данных из файла</string>
 
     <string name="theme_picker_title_text">Тема</string>
     <string name="theme_picker_save_text">Сохранить</string>

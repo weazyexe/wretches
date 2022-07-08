@@ -44,6 +44,7 @@ class BackupHelper(context: Context) {
             }
             emptyList()
         } catch (e: Exception) {
+            e.printStackTrace()
             emptyList()
         }
     }

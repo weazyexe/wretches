@@ -49,8 +49,16 @@ class SettingsViewModel(
         ).emit()
     }
 
-    fun restore(uri: Uri) {
-
+    fun restore(uri: Uri) = viewModelScope.launch {
+        try {
+            val restoredCrimes = backupHelper.restore(uri).also {
+                if (it.isEmpty()) throw Exception()
+            }
+            crimesStorage.rewriteAll(restoredCrimes)
+            SettingsEffect.ShowSnackbar(R.string.settings_restore_successful_text).emit()
+        } catch (e: Exception) {
+            SettingsEffect.ShowSnackbar(R.string.settings_restore_error_text).emit()
+        }
     }
 
     private fun updateTheme() = viewModelScope.launch {
