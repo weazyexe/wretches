@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.R
@@ -15,8 +15,11 @@ import dev.weazyexe.wretches.databinding.ActivityMainBinding
 import dev.weazyexe.wretches.ui.main.adapter.CrimeAdapter
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity
 import dev.weazyexe.wretches.ui.settings.SettingsActivity
-import kotlinx.coroutines.flow.collectLatest
+import dev.weazyexe.wretches.utils.subscribe
 
+/**
+ * Главный экран
+ */
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -36,6 +39,14 @@ class MainActivity : AppCompatActivity() {
         updateUi()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchCrimes()
+    }
+
+    /**
+     * Инициализация edge-to-edge режима
+     */
     private fun initEdgeToEdge() = with(binding) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         toolbar.applyInsetter {
@@ -68,14 +79,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUi() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.state.collectLatest {
-                adapter.submitList(it.crimes)
-            }
-        }
+    /**
+     * Подписываемся на обновление состояния из ViewModel
+     */
+    private fun updateUi() = with(binding) {
+        subscribe(viewModel, onNewState = {
+            val hasCrimes = it.crimes.isNotEmpty()
+            crimesRv.isVisible = hasCrimes
+            emptyLayout.root.isVisible = !hasCrimes
+            adapter.submitList(it.crimes)
+        })
     }
 
+    /**
+     * Открыть [Activity] типа [A] с параметрами из [bundle]
+     */
     private inline fun <reified A : Activity> openActivity(bundle: Bundle = bundleOf()) {
         Intent(this@MainActivity, A::class.java).apply {
             putExtras(bundle)
