@@ -3,6 +3,7 @@ package dev.weazyexe.wretches.ui.newcrime.adapter
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,8 @@ import com.bumptech.glide.Glide
 import dev.weazyexe.wretches.databinding.ItemPhotoBinding
 
 class PhotoAdapter(
-    private val onCloseClick: (photo: Uri) -> Unit
+    private val onPhotoClick: ((photo: Uri) -> Unit)? = null,
+    private val onCloseClick: ((photo: Uri) -> Unit)? = null
 ) : ListAdapter<Uri, PhotoAdapter.Holder>(DiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -27,7 +29,9 @@ class PhotoAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(photo: Uri) = with(binding) {
-            closeBtn.setOnClickListener { onCloseClick(photo) }
+            root.setOnClickListener { onPhotoClick?.invoke(photo) }
+            closeBtn.isVisible = onCloseClick != null
+            closeBtn.setOnClickListener { onCloseClick?.invoke(photo) }
             Glide.with(itemView.context)
                 .load(photo)
                 .centerCrop()

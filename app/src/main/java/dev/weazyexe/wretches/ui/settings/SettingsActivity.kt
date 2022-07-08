@@ -1,19 +1,24 @@
 package dev.weazyexe.wretches.ui.settings
 
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dev.chrisbanes.insetter.applyInsetter
+import dev.weazyexe.wretches.R
 import dev.weazyexe.wretches.databinding.ActivitySettingsBinding
 import dev.weazyexe.wretches.utils.AlertDialogBuilder
-import kotlinx.coroutines.flow.collectLatest
+import dev.weazyexe.wretches.utils.subscribe
 
 class SettingsActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<SettingsViewModel>()
+    private val createFileContract = registerForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json")
+    ) { uri -> uri?.let { viewModel.backup(uri) } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +47,36 @@ class SettingsActivity : AppCompatActivity() {
                 onSuccess = { viewModel.setTheme(it) }
             ).show()
         }
+        backupButton.setOnClickListener {
+            if (viewModel.hasCrimes()) {
+                createFileContract.launch(FILE_NAME)
+            } else {
+                viewModel.emitEffect(SettingsEffect.ShowSnackbar(R.string.settings_backup_nothing_to_backup_text))
+            }
+        }
+        restoreButton.setOnClickListener {
+//            viewModel.restore()
+        }
     }
 
     private fun updateUi() = with(binding) {
-        lifecycleScope.launchWhenStarted {
-            viewModel.state.collectLatest {
+        subscribe(
+            viewModel,
+            onNewState = {
                 themeValueTv.text = getString(it.theme.stringRes)
+            },
+            onNewEffect = {
+                when (it) {
+                    is SettingsEffect.ShowSnackbar -> {
+                        Snackbar.make(binding.root, it.messageRes, Snackbar.LENGTH_LONG).show()
+                    }
+                }
             }
-        }
+        )
+    }
+
+    companion object {
+
+        private const val FILE_NAME = "wretches_backup.json"
     }
 }

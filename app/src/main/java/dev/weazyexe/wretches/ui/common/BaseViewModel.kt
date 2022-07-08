@@ -24,6 +24,10 @@ abstract class BaseViewModel<S, E>(application: Application) : AndroidViewModel(
         _state.emit(block(currentState))
     }
 
+    fun emitEffect(effect: E) = viewModelScope.launch {
+        effect.emit()
+    }
+
     protected fun E.emit() = viewModelScope.launch {
         _effects.send(this@emit)
     }

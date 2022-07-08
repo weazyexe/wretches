@@ -1,34 +1,29 @@
 package dev.weazyexe.wretches.ui.newcrime
 
+import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.lifecycleScope
 import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.databinding.ActivityNewCrimeBinding
 import dev.weazyexe.wretches.entity.Crime
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeEffect.*
 import dev.weazyexe.wretches.ui.newcrime.adapter.PhotoAdapter
+import dev.weazyexe.wretches.ui.newcrime.photopicker.PhotoPickerDialog
+import dev.weazyexe.wretches.utils.subscribe
 import dev.weazyexe.wretches.utils.updateIfNeeds
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class NewCrimeActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityNewCrimeBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<NewCrimeViewModel>()
 
-    private val adapter = PhotoAdapter {
-        viewModel.removePhoto(it)
-    }
-
-    private val getPhotos = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let { viewModel.addPhoto(uri) }
-    }
+    private val adapter = PhotoAdapter(
+        onCloseClick = { viewModel.removePhoto(it) }
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +44,7 @@ class NewCrimeActivity : AppCompatActivity() {
             type(tappableElement = true, ime = true) { margin() }
         }
         pickPhotosButton.setOnClickListener {
-            getPhotos.launch("image/*")
+            PhotoPickerDialog().show(supportFragmentManager, PhotoPickerDialog.TAG)
         }
     }
 
@@ -75,38 +70,41 @@ class NewCrimeActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             viewModel.save()
         }
+        supportFragmentManager.setFragmentResultListener(
+            PhotoPickerDialog.PHOTO_PICKER_RESULT_KEY,
+            this@NewCrimeActivity
+        ) { _, bundle ->
+            val result = bundle.getParcelable<Uri?>(PhotoPickerDialog.PHOTO_PICKER_URI)
+            if (result != null) {
+                viewModel.addPhoto(result)
+            }
+        }
     }
 
-    private fun updateUi() {
-        with(binding) {
-            lifecycleScope.launchWhenResumed {
-                launch {
-                    viewModel.state.collectLatest {
-                        toolbar.title = getString(it.toolbarTitleRes)
-                        titleTv.updateIfNeeds(it.title)
-                        descriptionTv.updateIfNeeds(it.description)
-                        solvedCb.updateIfNeeds(it.isSolved)
-                        adapter.submitList(it.photos)
+    private fun updateUi() = with(binding) {
+        subscribe(
+            viewModel,
+            onNewState = {
+                toolbar.title = getString(it.toolbarTitleRes)
+                titleTv.updateIfNeeds(it.title)
+                descriptionTv.updateIfNeeds(it.description)
+                solvedCb.updateIfNeeds(it.isSolved)
+                adapter.submitList(it.photos)
+            },
+            onNewEffect = {
+                when (it) {
+                    is GoBack -> onBackPressed()
+                    is SetTitleError -> {
+                        titleTil.isErrorEnabled = true
+                        titleTil.error = getString(it.resId)
                     }
-                }
-
-                launch {
-                    viewModel.effects.collectLatest {
-                        when (it) {
-                            is GoBack -> onBackPressed()
-                            is SetTitleError -> {
-                                titleTil.isErrorEnabled = true
-                                titleTil.error = getString(it.resId)
-                            }
-                            is SetDescriptionError -> {
-                                descriptionTil.isErrorEnabled = true
-                                descriptionTil.error = getString(it.resId)
-                            }
-                        }
+                    is SetDescriptionError -> {
+                        descriptionTil.isErrorEnabled = true
+                        descriptionTil.error = getString(it.resId)
                     }
                 }
             }
-        }
+        )
     }
 
     companion object {

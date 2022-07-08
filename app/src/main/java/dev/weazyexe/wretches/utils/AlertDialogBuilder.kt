@@ -33,4 +33,14 @@ object AlertDialogBuilder {
             .create()
     }
 
+    fun noStoragePermission(context: Context): AlertDialog =
+        MaterialAlertDialogBuilder(context)
+            .setTitle(R.string.photo_picker_no_permission_title_text)
+            .setMessage(R.string.photo_picker_no_permission_description_text)
+            .setPositiveButton(R.string.photo_picker_ok_text) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+
 }

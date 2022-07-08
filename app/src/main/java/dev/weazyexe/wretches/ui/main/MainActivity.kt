@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.R
@@ -16,8 +15,7 @@ import dev.weazyexe.wretches.databinding.ActivityMainBinding
 import dev.weazyexe.wretches.ui.main.adapter.CrimeAdapter
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity
 import dev.weazyexe.wretches.ui.settings.SettingsActivity
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
+import dev.weazyexe.wretches.utils.subscribe
 
 class MainActivity : AppCompatActivity() {
 
@@ -76,14 +74,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUi() = with(binding) {
-        lifecycleScope.launchWhenStarted {
-            viewModel.state.onEach {
-                val hasCrimes = it.crimes.isNotEmpty()
-                crimesRv.isVisible = hasCrimes
-                emptyLayout.root.isVisible = !hasCrimes
-                adapter.submitList(it.crimes)
-            }.collect()
-        }
+        subscribe(viewModel, onNewState = {
+            val hasCrimes = it.crimes.isNotEmpty()
+            crimesRv.isVisible = hasCrimes
+            emptyLayout.root.isVisible = !hasCrimes
+            adapter.submitList(it.crimes)
+        })
     }
 
     private inline fun <reified A : Activity> openActivity(bundle: Bundle = bundleOf()) {
