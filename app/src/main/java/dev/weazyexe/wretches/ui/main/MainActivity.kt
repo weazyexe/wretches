@@ -17,6 +17,9 @@ import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity
 import dev.weazyexe.wretches.ui.settings.SettingsActivity
 import dev.weazyexe.wretches.utils.subscribe
 
+/**
+ * Главный экран
+ */
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -41,6 +44,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.fetchCrimes()
     }
 
+    /**
+     * Инициализация edge-to-edge режима
+     */
     private fun initEdgeToEdge() = with(binding) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         toolbar.applyInsetter {
@@ -73,6 +79,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Подписываемся на обновление состояния из ViewModel
+     */
     private fun updateUi() = with(binding) {
         subscribe(viewModel, onNewState = {
             val hasCrimes = it.crimes.isNotEmpty()
@@ -82,6 +91,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Открыть [Activity] типа [A] с параметрами из [bundle]
+     */
     private inline fun <reified A : Activity> openActivity(bundle: Bundle = bundleOf()) {
         Intent(this@MainActivity, A::class.java).apply {
             putExtras(bundle)

@@ -3,6 +3,11 @@ package dev.weazyexe.wretches.storage.crimes
 import android.net.Uri
 import androidx.room.TypeConverter
 
+/**
+ * Конвертер для списка [Uri]
+ * Объект [Uri] не может сохраниться в БД, поэтому его следует
+ * конвертировать в объект String
+ */
 class PhotosListConverter {
 
     companion object {

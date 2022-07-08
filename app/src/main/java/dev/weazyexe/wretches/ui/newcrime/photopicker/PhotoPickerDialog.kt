@@ -19,6 +19,9 @@ import dev.weazyexe.wretches.utils.AlertDialogBuilder
 import dev.weazyexe.wretches.utils.hasReadExternalStoragePermission
 import dev.weazyexe.wretches.utils.subscribe
 
+/**
+ * Диалог выбора фотографии из памяти устройства
+ */
 class PhotoPickerDialog : BottomSheetDialogFragment() {
 
     companion object {
@@ -61,6 +64,9 @@ class PhotoPickerDialog : BottomSheetDialogFragment() {
         loadPhotos()
     }
 
+    /**
+     * Инициализация edge-to-edge режима
+     */
     private fun initEdgeToEdge() = with(binding) {
         root.applyInsetter {
             type(navigationBars = true) { padding() }
@@ -71,6 +77,9 @@ class PhotoPickerDialog : BottomSheetDialogFragment() {
         photosRv.adapter = adapter
     }
 
+    /**
+     * Подписываемся на обновление состояния из ViewModel
+     */
     private fun updateUi() {
         subscribe(viewModel, onNewState = {
             adapter.submitList(it.photos)
@@ -85,6 +94,10 @@ class PhotoPickerDialog : BottomSheetDialogFragment() {
         }
     }
 
+    /**
+     * Устанавливаем результат работы фрагмента и возвращаем его на предыдущий экран,
+     * закрывая текущий диалог
+     */
     private fun setResult(uri: Uri) {
         setFragmentResult(PHOTO_PICKER_RESULT_KEY, bundleOf(PHOTO_PICKER_URI to uri))
         dismiss()

@@ -11,6 +11,9 @@ import dev.weazyexe.wretches.entity.Theme
 import dev.weazyexe.wretches.ui.common.BaseViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Вью модель экрана [SettingsViewModel]
+ */
 class SettingsViewModel(
     application: Application
 ) : BaseViewModel<SettingsState, SettingsEffect>(application) {

@@ -6,6 +6,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Сущность преступления
+ */
 @Entity
 @Parcelize
 data class Crime(

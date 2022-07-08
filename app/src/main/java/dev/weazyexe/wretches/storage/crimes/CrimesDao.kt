@@ -6,6 +6,9 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import dev.weazyexe.wretches.entity.Crime
 
+/**
+ * Интерфейс для работы с БД с преступлениями
+ */
 @Dao
 interface CrimesDao {
 

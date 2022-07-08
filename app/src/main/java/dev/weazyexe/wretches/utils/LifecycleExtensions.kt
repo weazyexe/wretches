@@ -6,6 +6,9 @@ import dev.weazyexe.wretches.ui.common.BaseViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Подписаться на состояние и эффекты из [BaseViewModel]
+ */
 fun <S, E> LifecycleOwner.subscribe(
     viewModel: BaseViewModel<S, E>,
     onNewState: (S) -> Unit,

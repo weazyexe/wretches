@@ -11,6 +11,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
+/**
+ * Хранилище с настройками приложения.
+ * Обёртка над Jetpack DataStore
+ */
 class SettingsStorage(private val context: Context) {
 
     companion object {

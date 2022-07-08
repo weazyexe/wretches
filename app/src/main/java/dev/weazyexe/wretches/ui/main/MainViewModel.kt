@@ -6,6 +6,9 @@ import dev.weazyexe.wretches.app.App
 import dev.weazyexe.wretches.ui.common.BaseViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Вью модель экрана [MainActivity]
+ */
 class MainViewModel(application: Application) : BaseViewModel<MainState, MainEffect>(application) {
 
     override val initialState: MainState = MainState()

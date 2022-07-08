@@ -6,6 +6,9 @@ import dev.weazyexe.wretches.app.App
 import dev.weazyexe.wretches.ui.common.BaseViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Вью модель диалога [PhotoPickerDialog]
+ */
 class PhotoPickerViewModel(application: Application) :
     BaseViewModel<PhotoPickerState, PhotoPickerEvent>(application) {
 

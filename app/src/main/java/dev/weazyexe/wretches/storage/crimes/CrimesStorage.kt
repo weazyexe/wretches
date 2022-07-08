@@ -6,6 +6,10 @@ import dev.weazyexe.wretches.entity.Crime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Хранилище с преступлениями.
+ * Обёртка над базой данной для удобной работы
+ */
 class CrimesStorage(context: Context) {
 
     private val database = Room.databaseBuilder(

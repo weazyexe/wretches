@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.weazyexe.wretches.databinding.ItemCrimeBinding
 import dev.weazyexe.wretches.entity.Crime
 
+/**
+ * Адаптер для списка преступлений
+ */
 class CrimeAdapter(private val onClick: (Crime) -> Unit) :
     ListAdapter<Crime, CrimeAdapter.Holder>(DiffUtils()) {
 

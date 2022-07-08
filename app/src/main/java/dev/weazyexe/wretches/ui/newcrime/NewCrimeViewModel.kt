@@ -13,7 +13,10 @@ import dev.weazyexe.wretches.ui.newcrime.NewCrimeEffect.*
 import kotlinx.coroutines.launch
 import java.util.*
 
-// Важен порядок - вначале application, потом savedStateHandle
+/**
+ * Вью модель экрана [NewCrimeActivity]
+ * Важен порядок параметров в конструкторе - вначале application, потом savedStateHandle
+ */
 class NewCrimeViewModel(
     application: Application,
     savedStateHandle: SavedStateHandle

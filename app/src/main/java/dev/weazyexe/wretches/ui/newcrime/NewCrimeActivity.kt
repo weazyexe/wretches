@@ -16,6 +16,9 @@ import dev.weazyexe.wretches.ui.newcrime.photopicker.PhotoPickerDialog
 import dev.weazyexe.wretches.utils.subscribe
 import dev.weazyexe.wretches.utils.updateIfNeeds
 
+/**
+ * Экран с добавлением/редактированием преступлений
+ */
 class NewCrimeActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityNewCrimeBinding.inflate(layoutInflater) }
@@ -35,6 +38,9 @@ class NewCrimeActivity : AppCompatActivity() {
         updateUi()
     }
 
+    /**
+     * Инициализация edge-to-edge режима
+     */
     private fun initEdgeToEdge() = with(binding) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         toolbar.applyInsetter {
@@ -81,6 +87,9 @@ class NewCrimeActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Подписываемся на обновление состояния из ViewModel
+     */
     private fun updateUi() = with(binding) {
         subscribe(
             viewModel,

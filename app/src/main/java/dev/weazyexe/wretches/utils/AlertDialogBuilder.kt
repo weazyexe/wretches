@@ -6,8 +6,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.weazyexe.wretches.R
 import dev.weazyexe.wretches.entity.Theme
 
+/**
+ * Билдер для простых диалогов приложения
+ */
 object AlertDialogBuilder {
 
+    /**
+     * Создание диалога выбора цветовой темы
+     */
     fun themePicker(
         context: Context,
         value: Theme,
@@ -33,6 +39,9 @@ object AlertDialogBuilder {
             .create()
     }
 
+    /**
+     * Диалог с пояснением об отсутствии разрешения на чтение файлов
+     */
     fun noReadStoragePermission(context: Context): AlertDialog =
         MaterialAlertDialogBuilder(context)
             .setTitle(R.string.photo_picker_no_permission_title_text)
@@ -42,6 +51,9 @@ object AlertDialogBuilder {
             }
             .create()
 
+    /**
+     * Диалог с пояснением об отсутствии разрешения на запись файлов
+     */
     fun noWriteStoragePermission(context: Context): AlertDialog =
         MaterialAlertDialogBuilder(context)
             .setTitle(R.string.settings_backup_permission_title_text)

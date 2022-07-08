@@ -7,6 +7,10 @@ import android.provider.MediaStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Хранилище с фотографиями.
+ * Обёртка над Media Store
+ */
 class PhotoStorage(private val context: Context) {
 
     suspend fun getPhotos(amount: Int = 10): List<Uri> = withContext(Dispatchers.IO) {

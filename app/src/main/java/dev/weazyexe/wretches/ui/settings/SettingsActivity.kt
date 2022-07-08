@@ -14,6 +14,9 @@ import dev.weazyexe.wretches.utils.AlertDialogBuilder
 import dev.weazyexe.wretches.utils.hasWriteExternalStoragePermission
 import dev.weazyexe.wretches.utils.subscribe
 
+/**
+ * Экран с настройками приложения
+ */
 class SettingsActivity : AppCompatActivity() {
 
     companion object {
@@ -52,6 +55,9 @@ class SettingsActivity : AppCompatActivity() {
         updateUi()
     }
 
+    /**
+     * Инициализация edge-to-edge режима
+     */
     private fun initEdgeToEdge() = with(binding) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         toolbar.applyInsetter {
@@ -82,6 +88,9 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Подписываемся на обновление состояния из ViewModel
+     */
     private fun updateUi() = with(binding) {
         subscribe(
             viewModel,

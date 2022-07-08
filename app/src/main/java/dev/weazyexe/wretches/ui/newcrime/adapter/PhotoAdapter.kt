@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.weazyexe.wretches.databinding.ItemPhotoBinding
 
+/**
+ * Адаптер для списка фотографий
+ */
 class PhotoAdapter(
     private val onPhotoClick: ((photo: Uri) -> Unit)? = null,
     private val onCloseClick: ((photo: Uri) -> Unit)? = null

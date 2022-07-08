@@ -32,8 +32,14 @@ private val DEFAULT_CRIMES = listOf(
     Crime("12", "Чай", "Коллеги пошли на чай и не позвали меня, непорядок", false),
 )
 
+/**
+ * Состояние экрана [MainActivity]
+ */
 data class MainState(
     val crimes: List<Crime> = DEFAULT_CRIMES
 )
 
+/**
+ * Сайд эффекты экрана [MainActivity]
+ */
 sealed class MainEffect
