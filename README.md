@@ -22,20 +22,16 @@ Wretches (с англ. "негодяи") - приложение с запися�
 
 ### Главный экран в разных цветах Material You
 
-![Material You Green](./images/main_material_you_green.png)
-![Material You Blue](./images/main_material_you_blue.png)
-![Material You Purple](./images/main_material_you_purple.png)
+<img src="./images/main_material_you_green.png" width=30%> <img src="./images/main_material_you_blue.png" width=30%> <img src="./images/main_material_you_purple.png" width=30%>
 
 ### Экран с отсутствием преступлений
 
-![Empty State](./images/main_empty.png)
+<img src="./images/main_empty.png" width=30%>
 
 ### Создание/редактирование преступления
 
-![New Crime Screen](./images/new_crime_screen.png)
-![New Crime Picker](./images/new_crime_picker.png)
+<img src="./images/new_crime_screen.png" width=30%> <img src="./images/new_crime_picker.png" width=30%>
 
 ### Тема приложения
 
-![Dark Theme](./images/theme_dark.png)
-![Light Theme](./images/theme_light.png)
+<img src="./images/theme_dark.png" width=30%> <img src="./images/theme_light.png" width=30%>
