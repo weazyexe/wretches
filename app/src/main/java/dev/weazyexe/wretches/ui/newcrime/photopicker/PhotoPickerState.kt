@@ -12,4 +12,4 @@ data class PhotoPickerState(
 /**
  * Сайд эффекты диалога [PhotoPickerDialog]
  */
-sealed class PhotoPickerEvent
+sealed class PhotoPickerEffect

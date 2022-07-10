@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
  * Вью модель диалога [PhotoPickerDialog]
  */
 class PhotoPickerViewModel(application: Application) :
-    BaseViewModel<PhotoPickerState, PhotoPickerEvent>(application) {
+    BaseViewModel<PhotoPickerState, PhotoPickerEffect>(application) {
 
     override val initialState: PhotoPickerState = PhotoPickerState()
     private val photoStorage = (application as App).photoStorage
