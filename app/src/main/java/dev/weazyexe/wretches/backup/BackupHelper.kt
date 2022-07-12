@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Base64
-import androidx.core.net.toUri
 import dev.weazyexe.wretches.entity.Crime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,8 +14,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.util.*
 
 /**
  * Сущность-помощник для бэкапов данных приложения
@@ -34,9 +31,7 @@ class BackupHelper(context: Context) {
     suspend fun backup(uri: Uri, crimes: List<Crime>): Boolean = withContext(Dispatchers.IO) {
         return@withContext try {
             val json = crimesAsJson(crimes)
-            contentResolver.openOutputStream(uri)?.use {
-                it.write(json.toByteArray(Charsets.UTF_8))
-            }
+            // TODO сохранение преступлений в файловую систему
             true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -50,10 +45,7 @@ class BackupHelper(context: Context) {
      */
     suspend fun restore(uri: Uri): List<Crime> = withContext(Dispatchers.IO) {
         return@withContext try {
-            contentResolver.openInputStream(uri)?.use {
-                val json = it.readBytes().toString(Charsets.UTF_8)
-                return@withContext jsonAsCrimes(json)
-            }
+            // TODO восстановление преступлений из бэкап файла
             emptyList()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -144,8 +136,7 @@ class BackupHelper(context: Context) {
      * @return список с сохраненными ссылками на изображения [Uri]
      */
     private fun List<String>.saveImagesToInternalStorage(): List<Uri> = map {
-        val file = File(filesDir, UUID.randomUUID().toString())
-        file.writeBytes(Base64.decode(it, Base64.DEFAULT))
-        file.toUri()
+        // TODO сохранение файлов во внутреннее хранилище
+        Uri.EMPTY
     }
 }

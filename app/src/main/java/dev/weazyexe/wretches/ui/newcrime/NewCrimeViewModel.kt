@@ -5,13 +5,12 @@ import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dev.weazyexe.wretches.R
-import dev.weazyexe.wretches.app.App
 import dev.weazyexe.wretches.entity.Crime
 import dev.weazyexe.wretches.ui.common.BaseViewModel
 import dev.weazyexe.wretches.ui.newcrime.NewCrimeActivity.Companion.EXTRA_CRIME
-import dev.weazyexe.wretches.ui.newcrime.NewCrimeEffect.*
+import dev.weazyexe.wretches.ui.newcrime.NewCrimeEffect.SetDescriptionError
+import dev.weazyexe.wretches.ui.newcrime.NewCrimeEffect.SetTitleError
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * Вью модель экрана [NewCrimeActivity]
@@ -23,7 +22,6 @@ class NewCrimeViewModel(
 ) : BaseViewModel<NewCrimeState, NewCrimeEffect>(application) {
 
     override val initialState: NewCrimeState = NewCrimeState()
-    private val crimesStorage = (application as App).crimesStorage
 
     init {
         savedStateHandle.get<Crime>(EXTRA_CRIME)?.let { setCrime(it) }
@@ -55,16 +53,7 @@ class NewCrimeViewModel(
 
     fun save() = viewModelScope.launch {
         if (validate()) {
-            val id = state.value.id.takeIf { it != null } ?: UUID.randomUUID().toString()
-            val crime = Crime(
-                id = id,
-                title = state.value.title,
-                description = state.value.description,
-                isSolved = state.value.isSolved,
-                photos = state.value.photos
-            )
-            crimesStorage.save(crime)
-            GoBack.emit()
+            // TODO добавить сохранение преступления в БД
         }
     }
 

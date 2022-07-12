@@ -35,6 +35,7 @@
     <string name="settings_restore_description_text">Восстановление всех данных из резервной копии</string>
     <string name="settings_restore_successful_text">Данные успешно восстановлены</string>
     <string name="settings_restore_error_text">Произошла ошибка при восстановлении данных из файла</string>
+    <string name="settings_theme_update_error_text">Не удалось обновить тему</string>
 
     <string name="theme_picker_title_text">Тема</string>
     <string name="theme_picker_save_text">Сохранить</string>
