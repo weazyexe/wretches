@@ -60,7 +60,7 @@ class NewCrimeActivity : AppCompatActivity() {
 
     private fun initListeners() = with(binding) {
         toolbar.setNavigationOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
         titleTv.doOnTextChanged { text, _, _, _ ->
             titleTil.isErrorEnabled = false
@@ -102,7 +102,7 @@ class NewCrimeActivity : AppCompatActivity() {
             },
             onNewEffect = {
                 when (it) {
-                    is GoBack -> onBackPressed()
+                    is GoBack -> onBackPressedDispatcher.onBackPressed()
                     is SetTitleError -> {
                         titleTil.isErrorEnabled = true
                         titleTil.error = getString(it.resId)

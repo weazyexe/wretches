@@ -67,7 +67,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun initListeners() = with(binding) {
         toolbar.setNavigationOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
         themeButton.setOnClickListener {
             AlertDialogBuilder.themePicker(
