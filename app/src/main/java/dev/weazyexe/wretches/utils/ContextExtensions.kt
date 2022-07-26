@@ -6,15 +6,21 @@ import android.content.pm.PackageManager
 import android.os.Build
 
 /**
- * Проверка на присутствие разрешения для чтения файлов
+ * Проверка на присутствие разрешения [permission]
  */
-fun Context.hasReadExternalStoragePermission(): Boolean =
-    checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+fun Context.handlePermission(
+    permission: String,
+    onPermissionGranted: (permission: String) -> Unit,
+    onPermissionDenied: (permission: String) -> Unit
+) {
+    val hasScopedStorage = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+    val isWritePermission = permission == Manifest.permission.WRITE_EXTERNAL_STORAGE
 
-/**
- * Проверка на присутствие разрешения для записи файлов.
- * Для Android с версией 10 и выше оно неактуально и было удалено
- */
-fun Context.hasWriteExternalStoragePermission(): Boolean =
-    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+    when {
+        isWritePermission && hasScopedStorage ->
+            onPermissionGranted(permission)
+        checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED ->
+            onPermissionGranted(permission)
+        else -> onPermissionDenied(permission)
+    }
+}

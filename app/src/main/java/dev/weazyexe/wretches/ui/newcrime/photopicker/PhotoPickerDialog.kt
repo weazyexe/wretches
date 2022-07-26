@@ -2,6 +2,7 @@ package dev.weazyexe.wretches.ui.newcrime.photopicker
 
 import android.Manifest
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import dev.weazyexe.wretches.R
 import dev.weazyexe.wretches.databinding.BottomSheetPhotoPickerBinding
 import dev.weazyexe.wretches.ui.newcrime.adapter.PhotoAdapter
 import dev.weazyexe.wretches.utils.AlertDialogBuilder
-import dev.weazyexe.wretches.utils.hasReadExternalStoragePermission
+import dev.weazyexe.wretches.utils.handlePermission
 import dev.weazyexe.wretches.utils.subscribe
 
 /**
@@ -87,11 +88,15 @@ class PhotoPickerDialog : BottomSheetDialogFragment() {
     }
 
     private fun loadPhotos() {
-        if (requireContext().hasReadExternalStoragePermission()) {
-            viewModel.getPhotos()
-        } else {
-            permissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
+        requireContext().handlePermission(
+            permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Manifest.permission.READ_MEDIA_IMAGES
+            } else {
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            },
+            onPermissionGranted = { viewModel.getPhotos() },
+            onPermissionDenied = { permissionsLauncher.launch(it) }
+        )
     }
 
     /**

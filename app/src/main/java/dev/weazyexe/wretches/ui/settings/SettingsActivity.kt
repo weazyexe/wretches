@@ -11,7 +11,7 @@ import dev.chrisbanes.insetter.applyInsetter
 import dev.weazyexe.wretches.R
 import dev.weazyexe.wretches.databinding.ActivitySettingsBinding
 import dev.weazyexe.wretches.utils.AlertDialogBuilder
-import dev.weazyexe.wretches.utils.hasWriteExternalStoragePermission
+import dev.weazyexe.wretches.utils.handlePermission
 import dev.weazyexe.wretches.utils.subscribe
 
 /**
@@ -77,11 +77,11 @@ class SettingsActivity : AppCompatActivity() {
             ).show()
         }
         backupButton.setOnClickListener {
-            if (hasWriteExternalStoragePermission()) {
-                createBackupFile()
-            } else {
-                permissionsLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
+            handlePermission(
+                permission = Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                onPermissionGranted = { createBackupFile() },
+                onPermissionDenied = { permissionsLauncher.launch(it) }
+            )
         }
         restoreButton.setOnClickListener {
             openFileLauncher.launch(arrayOf("application/json"))
